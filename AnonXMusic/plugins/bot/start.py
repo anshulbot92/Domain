@@ -14,8 +14,7 @@ from AnonXMusic.utils.database import (add_served_chat,
                                        get_served_chats,
                                        get_served_users,
                                        blacklisted_chats,
-                                       get_assistant, get_lang,
-                                       get_userss, is_on_off,
+                                       get_assistant, get_lang, is_on_off,
                                        is_served_private_chat)
 from AnonXMusic.utils.decorators.language import LanguageStart
 from AnonXMusic.utils.formatters import get_readable_time
