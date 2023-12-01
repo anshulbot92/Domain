@@ -9,14 +9,14 @@ import config
 from AnonXMusic import app
 from AnonXMusic.misc import _boot_
 from AnonXMusic.plugins.sudo.sudoers import sudoers_list
-from AnonXMusic.utils.database import (
-    add_served_chat,
-    add_served_user,
-    blacklisted_chats,
-    get_lang,
-    is_banned_user,
-    is_on_off,
-)
+from AnonXMusic.utils.database import (add_served_chat,
+                                       add_served_user,
+                                       get_served_chats,
+                                       get_served_users,
+                                       blacklisted_chats,
+                                       get_assistant, get_lang,
+                                       get_userss, is_on_off,
+                                       is_served_private_chat)
 from AnonXMusic.utils.decorators.language import LanguageStart
 from AnonXMusic.utils.formatters import get_readable_time
 from AnonXMusic.utils.inline import help_pannel, private_panel, start_panel
@@ -44,6 +44,16 @@ async def start_pm(client, message: Message, _):
                     chat_id=config.LOGGER_ID,
                     text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
                 )
+        if name == "verify":
+            await message.reply_text(f"ʜᴇʏ {message.from_user.first_name},\nᴛʜᴀɴᴋs ғᴏʀ ᴠᴇʀɪғʏɪɴɢ ʏᴏᴜʀsᴇʟғ ɪɴ {config.MUSIC_BOT_NAME}, ɴᴏᴡ ʏᴏᴜ ᴄᴀɴ ɢᴏ ʙᴀᴄᴋ ᴀɴᴅ sᴛᴀʀᴛ ᴜsɪɴɢ ᴍᴇ.")
+            if await is_on_off(config.LOG):
+                sender_id = message.from_user.id
+                sender_name = message.from_user.first_name
+                return await app.send_message(
+                    config.LOG_GROUP_ID,
+                    f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ <code>ᴠᴇʀɪғʏ ʜɪᴍsᴇʟғ</code>\n\n**ᴜsᴇʀ ɪᴅ:** {sender_id}\n**ᴜsᴇʀɴᴀᴍᴇ:** {sender_name}",
+                )
+            return
             return
         if name[0:3] == "inf":
             m = await message.reply_text("🔎")
